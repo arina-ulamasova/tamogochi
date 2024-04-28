@@ -40,7 +40,6 @@ jobs:
       run: |
         python -m pip install --upgrade buildozer
         buildozer init
-        cp ./*.py ./*.kv ./*.png ./  # Это скопирует все файлы Python, KV и PNG из корневой папки в рабочую директорию
         buildozer -v android debug
 
     - name: Upload APK artifact
