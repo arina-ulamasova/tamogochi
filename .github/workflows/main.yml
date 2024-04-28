@@ -26,7 +26,15 @@ jobs:
 
     - name: Install Aidl
       run: |
-        sudo apt-get install -y aidl
+        sudo apt-get install -y android-sdk-build-tools
+
+    - name: Check for Aidl
+      run: |
+        if ! command -v aidl &> /dev/null
+        then
+            echo "Aidl not found, please install it."
+            exit 1
+        fi
 
     - name: Build APK
       run: |
