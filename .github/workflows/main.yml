@@ -1,9 +1,12 @@
-name: Build APK
+name: Build Android App
 
 on:
   push:
     branches:
-      - main
+      - main  # Ваша основная ветка, замените при необходимости
+  pull_request:
+    branches:
+      - main  # Ваша основная ветка, замените при необходимости
 
 jobs:
   build:
@@ -13,40 +16,39 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python 3.9
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'
+        python-version: '3.x'  # Версия Python
 
-    - name: Install build dependencies
+    - name: Install Kivy dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-pip build-essential git python3 python3-dev python3-pil python3-setuptools python3-venv python3-wheel python3-xlib
-        pip install kivy cython
+        sudo apt-get install -y \
+          python3-pip \
+          build-essential \
+          git \
+          python3 \
+          python3-dev \
+          ffmpeg \
+          libsdl2-dev \
+          libsdl2-image-dev \
+          libsdl2-mixer-dev \
+          libsdl2-ttf-dev \
+          libportmidi-dev \
+          libswscale-dev \
+          libavformat-dev \
+          libavcodec-dev \
+          zlib1g-dev
 
-    # Устанавливаем Android SDK Build-Tools и принимаем лицензию
-    - name: Install Android SDK Build-Tools
-      run: |
-        echo y | sdkmanager --licenses
-        sudo apt-get install -y android-sdk-build-tools
+    - name: Install buildozer
+      run: pip install buildozer
 
-    # Проверяем наличие Aidl
-    - name: Check for Aidl
-      run: |
-        if ! command -v aidl &> /dev/null
-        then
-            echo "Aidl not found, please install it."
-            exit 1
-        fi
-
-    - name: Build APK
-      run: |
-        python -m pip install --upgrade buildozer
-        buildozer init
-        buildozer -v android debug
+    - name: Build Android APK
+      run: buildozer android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v2
       with:
-        name: app-debug
+        name: my-app-debug
         path: ./bin/*.apk
