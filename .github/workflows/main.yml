@@ -28,7 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade buildozer
         buildozer init
-        cp ./*.py ./*.kv ./  # Оставляем только файлы Python и KV для копирования
+        cp ./*.py ./  # Оставляем только файлы Python для копирования
         buildozer -v android debug
 
 
