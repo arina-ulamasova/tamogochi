@@ -13,10 +13,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
+    - name: Set up Python 3.9
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.9'
 
     - name: Install build dependencies
       run: |
@@ -28,6 +28,7 @@ jobs:
       run: |
         python -m pip install --upgrade buildozer
         buildozer init
+        cp ./*.py ./*.kv ./*.png ./  # Это скопирует все файлы Python, KV и PNG из корневой папки в рабочую директорию
         buildozer -v android debug
 
     - name: Upload APK artifact
