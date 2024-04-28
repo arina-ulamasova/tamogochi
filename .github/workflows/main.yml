@@ -21,6 +21,9 @@ jobs:
       with:
         python-version: '3.x'
 
+    - name: Install distutils
+      run: sudo apt-get install python3-distutils
+
     - name: Install build dependencies
       run: |
         sudo apt update
@@ -29,7 +32,6 @@ jobs:
           zip \
           unzip \
           python3-pip \
-          python3-dev \
           build-essential \
           autoconf \
           libtool \
