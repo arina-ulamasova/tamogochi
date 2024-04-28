@@ -1,11 +1,10 @@
+import random
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.clock import Clock
-from kivy.uix.gridlayout import GridLayout
-import random
 
 class ReactionLabel(Label):
     pass
@@ -77,10 +76,10 @@ class ProgrammerSimulator(App):
 
     def update(self, dt):
         if self.running:
-            self.hunger -= 1/45
-            self.energy -= 1/30
-            self.leisure -= 1/95
-            self.motivation -= 1/60
+            self.hunger -= 1/10
+            self.energy -= 1/10
+            self.leisure -= 1/10
+            self.motivation -= 1/40
             self.check_game_over()
             self.update_stats()
             if self.money >= self.goal:
