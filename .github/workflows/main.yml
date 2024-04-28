@@ -30,7 +30,6 @@ jobs:
         buildozer init
         buildozer -v android debug
 
-
     - name: Upload APK artifact
       uses: actions/upload-artifact@v2
       with:
